@@ -1,6 +1,6 @@
 ---
 title: "Social Survey 2010"
-author: "Put your name here!"
+author: "Breawna Diefenderfer"
 date: "Fall 2018"
 output:
   html_document:
@@ -17,12 +17,13 @@ require(tigerstats)
 
 <!--In this section you explain what you are trying to show.  Where did the data come from?  What is the research or other question you are trying to answer?!-->
 
-Use the data from the 2010 general social survey to explore whether belief in continental drift (condrift), views on capitol punishment (cappun), and race (race) are independent of each other.
+I will use the data from the 2010 general social survey to explore whether belief in continental drift (condrift), views on capitol punishment (cappun), and race (race) are independent (Ho) or dependent (Ha) of each other.
 
 # Methods
 
 <!--Decide on your methods:  use "variable analysis" or other appropriate descriptors.  Make sure to choose at least one graphical method and at least one numerical method.!-->
-
+I will use bar graphs, the 'rowPerc' command and Chisquare Test to observe and decide if the variable pairs are indepent of each other. 
+  
 #Results
 
 <!--Divide this section into two sub-sections:  One for your descriptive  results and one for your inferential results.!-->
@@ -42,17 +43,68 @@ alldata <- read.csv(file="gss2010.csv", header=TRUE)
 ```{r}
 barchartGC(~race+condrift, data=alldata, type = "percent") 
 ```
-
-
+  
+Black people are less likely to believe in continental drift than the other Other or White.
+  
+```{r}
+barchartGC(~race+cappun, data=alldata, type = "percent")
+```
+  
+ If somone is against capital punishment they are most likely to be black, and more likely to be categorized as other than white. If they agree with capital punishmetnt they are most likely white, but more likely to be other than black.
+  
+```{r}
+barchartGC(~cappun+condrift, data=alldata, type = "percent")
+```
+  
+Views on cappital punishment does not seem to have any relation with belief in continental drift.
+  
+  
 ### Numerical Descriptive Results
 
 <!--Numerical results go here. Use the numerical results to describe the patterns if any that exist in the data as focused toward the research question!-->
 
+```{r}
+Rcondrift <- xtabs(~race+condrift,data=alldata)
+rowPerc(Rcondrift)
+```
+  The Black have a large 23% disbelief in the continetal drift, but the Other and White only have 9.5% and 8.4%, respectively.
+
+```{r}
+Rcappun <- xtabs(~race+cappun,data=alldata)
+rowPerc(Rcappun)
+```
+The Other and Black percentages are almost opposites of each other. Black have 46% in favor and 53% opposed; Other has 56% in favor and 43% opposed. However, the White have a 72% in favor and 27% opposed.
+  
+```{r}
+CpCd <- xtabs(~cappun+condrift,data=alldata)
+rowPerc(CpCd)
+```
+89.6% of those who favor capital punishment believe in the continental drift and 88.7% who oppose capital punishment believe in the continental drift. 
+
 ## Inferential Results
 
 <!--State hypothesis clearly.  Make sure your discussion of the inferential test covers all the aspects that the test output produces, such as test statistic, p-value etc.  Make a decision about the null hypothesis, explain the assumptions on which the selected test/procedure was based, and why the chosen procedure satisfys the assumptions and is appropriate to answer the research question!-->
-
-
+```{r}
+chisqtestGC(~race+condrift,data=alldata, graph=TRUE)
+``` 
+  
+We regect the null hypthesis;therefore we can assume the race and condrift variables are dependent.
+  
+```{r}
+chisqtestGC(~race+cappun,data=alldata, graph=TRUE)
+```
+  
+We reject the null hypothesis of 0. Variables are dependent.
+  
+```{r}
+chisqtestGC(~cappun+condrift,data=alldata, graph=TRUE)
+```
+  
+The null hypothesis (0.7919) is not rejected, so we can assume the variables are truely dependent.
+  
 # Discussion and Conclusion
 
 <!--Discussion and conclusion here.  If you found a relationship be sure to consider whether the relationship occurs because one of the variavbles causes the other, or whether they perhasps are related for some other reason.  Watch the chapter 6 videos from the GeorgeTown videos collection.!-->
+After complying all the data on the variable pairs we tested we have found that the "race" and "condrift" are not indepent of each other; the "race" and "cappun" are also not indepent of each other.l This means that the data of one variable will effect the results of the other. The opposite is true for the relationship between the "cappun and "condrift" variables: they are indepent of each other.
+  
+    

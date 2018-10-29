@@ -18,7 +18,11 @@ require(tigerstats)
 <!--In this section you explain what you are trying to show.  Where did the data come from?  What is the research or other question you are trying to answer?!-->
 
 I will use the data from the 2010 general social survey to explore whether belief in continental drift (condrift), views on capitol punishment (cappun), and race (race) are independent (Ho) or dependent (Ha) of each other.
-
+  
+  Ho: The variables are independent of each other.
+    
+  Ha: The variables are depndent of each other.
+  
 # Methods
 
 <!--Decide on your methods:  use "variable analysis" or other appropriate descriptors.  Make sure to choose at least one graphical method and at least one numerical method.!-->
